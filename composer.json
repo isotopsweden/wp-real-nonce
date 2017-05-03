@@ -1,0 +1,13 @@
+{
+    "name": "isotopsweden/wp-real-nonce",
+    "description": "WordPress nonce methods with single use check",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rasmus Bengtsson",
+            "email": "rasmus@isotop.se"
+        }
+    ],
+    "require": {}
+}
