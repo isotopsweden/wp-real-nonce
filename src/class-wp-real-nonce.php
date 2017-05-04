@@ -126,7 +126,29 @@ class Wp_Real_Nonce {
 
 		$token = wp_get_session_token();
 
-		return substr( wp_hash( $tick . '|' . $action . '|' . $uid . '|' . $token, 'nonce' ), - 12, 10 );
+		$browser = static::get_browser_id();
+
+		return substr( wp_hash( $tick . '|' . $action . '|' . $uid . '|' . $token . '|' . $browser, 'nonce' ), - 12, 10 );
+	}
+
+	/**
+	 * Get browser ID to prevent duplicated nonces for different users
+	 *
+	 * @return string
+	 */
+	protected static function get_browser_id() {
+		$browser_id   = '';
+		$request_keys = [
+			'REMOTE_ADDR',
+			'HTTP_USER_AGENT',
+			'HTTP_ACCEPT_LANGUAGE'
+		];
+
+		foreach ( $request_keys as $request_key ) {
+			$browser_id .= $_SERVER[ $request_key ] ?? '';
+		}
+
+		return $browser_id;
 	}
 
 	/**
